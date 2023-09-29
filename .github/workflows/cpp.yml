@@ -49,3 +49,4 @@ jobs:
     - if: ${{ matrix.build_type == 'RelWithDebInfo' }}
       name: Test main with valgrind
       run: ci-extra/test-valgrind.sh
+

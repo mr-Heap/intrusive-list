@@ -42,7 +42,7 @@ public:
     int *d_;
 
     template<bool WasConst, class = std::enable_if_t<is_const || !WasConst>>
-    my_iterator(my_iterator<WasConst> rhs) : d_(rhs.d_) {}
+    my_iterator(my_iterator<WasConst> rhs) : d_(rhs.d_), it(rhs.it) {}          // TODO: we have an opportunity to inc and dec const iterator
 
     using iterator_category = std::forward_iterator_tag;
     using difference_type = std::ptrdiff_t;
@@ -59,7 +59,7 @@ public:
     {
     }
 
-//    my_iterator& operator=(my_iterator & other) {
+//    my_iterator& operator=(my_iterator & other) {                             // TODO
 //      this->it = other.it;
 //    }
 

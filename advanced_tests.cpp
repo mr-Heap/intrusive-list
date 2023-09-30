@@ -1,116 +1,116 @@
 #include "intrusive_list.h"
 #include "test_utils.h"
 
-//TEST(advanced_intrusive_list_testing, iterators_01) {
-//  intrusive::list<node> list;
-//  auto it1 = list.begin();
-//  auto it2 = list.end();
-//
-//  node a(1);
-//  list.push_back(a);
-//
-//  auto it3 = list.begin();
-//  auto it4 = list.end();
-//  EXPECT_TRUE(it1 == it4);
-//  EXPECT_TRUE(it2 == it4);
-//  EXPECT_TRUE(it3 != it4);
-//
-//  --it1;
-//
-//  EXPECT_TRUE(it1 == it3);
-//}
-//
-//TEST(advanced_intrusive_list_testing, iterators_02) {
-//  intrusive::list<node> list;
-//  node a(1), b(2), c(3);
-//
-//  list.push_back(b);
-//  list.push_back(c);
-//  list.push_front(a);
-//
-//  auto i = list.begin();
-//  EXPECT_TRUE(i != list.end());
-//  EXPECT_EQ(1, i->value);
-//  ++i;
-//  EXPECT_TRUE(i != list.end());
-//  EXPECT_EQ(2, i->value);
-//  ++i;
-//  EXPECT_TRUE(i != list.end());
-//  EXPECT_EQ(3, i->value);
-//  ++i;
-//  EXPECT_TRUE(i == list.end());
-//}
-//
-//TEST(advanced_intrusive_list_testing, iterators_03) {
-//  intrusive::list<node> list;
-//  node a(1);
-//
-//  list.push_back(a);
-//
-//  auto it1 = list.end();
-//  auto it2 = --it1;
-//  EXPECT_EQ(1, it2->value);
-//}
-//
-//TEST(advanced_intrusive_list_testing, iterators_04) {
-//  intrusive::list<node> list;
-//  node a(1), b(2);
-//
-//  list.push_back(a);
-//  list.push_back(b);
-//
-//  auto it1 = list.begin();
-//  auto it2 = ++it1;
-//  EXPECT_EQ(2, it2->value);
-//}
-//
-//TEST(advanced_intrusive_list_testing, iterators_05) {
-//  intrusive::list<node> list;
-//  node a(1), b(2), c(3);
-//
-//  list.push_back(b);
-//  list.push_back(c);
-//  list.push_front(a);
-//
-//  auto i = list.end();
-//  EXPECT_TRUE(i != list.begin());
-//  --i;
-//  EXPECT_EQ(3, i->value);
-//  EXPECT_TRUE(i != list.begin());
-//  --i;
-//  EXPECT_EQ(2, i->value);
-//  EXPECT_TRUE(i != list.begin());
-//  --i;
-//  EXPECT_EQ(1, i->value);
-//  EXPECT_TRUE(i == list.begin());
-//}
-//
-//TEST(advanced_intrusive_list_testing, iterators_06) {
-//  intrusive::list<node> list;
-//  node a(1), b(2);
-//
-//  list.push_back(a);
-//  list.push_back(b);
-//
-//  auto it1 = list.begin();
-//  auto it2 = it1++;
-//  EXPECT_EQ(2, it1->value);
-//  EXPECT_EQ(1, it2->value);
-//}
-//
-//TEST(advanced_intrusive_list_testing, iterators_07) {
-//  intrusive::list<node> list;
-//  node a(1), b(2);
-//
-//  list.push_back(a);
-//  list.push_back(b);
-//
-//  auto it1 = list.end();
-//  --it1;
-//  auto it2 = it1--;
-//  EXPECT_EQ(1, it1->value);
-//  EXPECT_EQ(2, it2->value);
-//}
+TEST(advanced_intrusive_list_testing, iterators_01) {
+  intrusive::list<node> list;
+  auto it1 = list.begin();
+  auto it2 = list.end();
+
+  node a(1);
+  list.push_back(a);
+
+  auto it3 = list.begin();
+  auto it4 = list.end();
+  EXPECT_TRUE(it1 == it4);
+  EXPECT_TRUE(it2 == it4);
+  EXPECT_TRUE(it3 != it4);
+
+  --it1;
+
+  EXPECT_TRUE(it1 == it3);
+}
+
+TEST(advanced_intrusive_list_testing, iterators_02) {
+  intrusive::list<node> list;
+  node a(1), b(2), c(3);
+
+  list.push_back(b);
+  list.push_back(c);
+  list.push_front(a);
+
+  auto i = list.begin();
+  EXPECT_TRUE(i != list.end());
+  EXPECT_EQ(1, i->value);
+  ++i;
+  EXPECT_TRUE(i != list.end());
+  EXPECT_EQ(2, i->value);
+  ++i;
+  EXPECT_TRUE(i != list.end());
+  EXPECT_EQ(3, i->value);
+  ++i;
+  EXPECT_TRUE(i == list.end());
+}
+
+TEST(advanced_intrusive_list_testing, iterators_03) {
+  intrusive::list<node> list;
+  node a(1);
+
+  list.push_back(a);
+
+  auto it1 = list.end();
+  auto it2 = --it1;
+  EXPECT_EQ(1, it2->value);
+}
+
+TEST(advanced_intrusive_list_testing, iterators_04) {
+  intrusive::list<node> list;
+  node a(1), b(2);
+
+  list.push_back(a);
+  list.push_back(b);
+
+  auto it1 = list.begin();
+  auto it2 = ++it1;
+  EXPECT_EQ(2, it2->value);
+}
+
+TEST(advanced_intrusive_list_testing, iterators_05) {
+  intrusive::list<node> list;
+  node a(1), b(2), c(3);
+
+  list.push_back(b);
+  list.push_back(c);
+  list.push_front(a);
+
+  auto i = list.end();
+  EXPECT_TRUE(i != list.begin());
+  --i;
+  EXPECT_EQ(3, i->value);
+  EXPECT_TRUE(i != list.begin());
+  --i;
+  EXPECT_EQ(2, i->value);
+  EXPECT_TRUE(i != list.begin());
+  --i;
+  EXPECT_EQ(1, i->value);
+  EXPECT_TRUE(i == list.begin());
+}
+
+TEST(advanced_intrusive_list_testing, iterators_06) {
+  intrusive::list<node> list;
+  node a(1), b(2);
+
+  list.push_back(a);
+  list.push_back(b);
+
+  auto it1 = list.begin();
+  auto it2 = it1++;
+  EXPECT_EQ(2, it1->value);
+  EXPECT_EQ(1, it2->value);
+}
+
+TEST(advanced_intrusive_list_testing, iterators_07) {
+  intrusive::list<node> list;
+  node a(1), b(2);
+
+  list.push_back(a);
+  list.push_back(b);
+
+  auto it1 = list.end();
+  --it1;
+  auto it2 = it1--;
+  EXPECT_EQ(1, it1->value);
+  EXPECT_EQ(2, it2->value);
+}
 
 TEST(advanced_intrusive_list_testing, iterators_08) {
   intrusive::list<node> list;

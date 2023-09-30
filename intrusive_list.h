@@ -158,21 +158,35 @@ public:
 
   list(list && other)
   {
-    this->sentinel = other.sentinel;
     if (other.empty()) {
       this->sentinel.prev = &sentinel;
       this->sentinel.next = &sentinel;
+      return;
     }
+
+    this->sentinel.prev = other.sentinel.prev;
+    this->sentinel.next = other.sentinel.next;
+
+    this->sentinel.prev->next = &sentinel;
+    this->sentinel.next->prev = &sentinel;
+
     other.sentinel.prev = &other.sentinel;
     other.sentinel.next = &other.sentinel;
   }
 
   list& operator=(list && other) {
-    this->sentinel = other.sentinel;
     if (other.empty()) {
       this->sentinel.prev = &sentinel;
       this->sentinel.next = &sentinel;
+      return *this;
     }
+
+    this->sentinel.prev = other.sentinel.prev;
+    this->sentinel.next = other.sentinel.next;
+
+    this->sentinel.prev->next = &sentinel;
+    this->sentinel.next->prev = &sentinel;
+
     other.sentinel.prev = &other.sentinel;
     other.sentinel.next = &other.sentinel;
     return *this;

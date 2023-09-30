@@ -40,10 +40,10 @@ public:
   public:
 
     int *d_;
+    list_base * it;
 
     template<bool WasConst, class = std::enable_if_t<is_const || !WasConst>>
     my_iterator(my_iterator<WasConst> rhs) : d_(rhs.d_), it(rhs.it) {}          // TODO: we have an opportunity to inc and dec const iterator
-
     using iterator_category = std::forward_iterator_tag;
     using difference_type = std::ptrdiff_t;
     using value_type = list_element<Tag>;
@@ -51,8 +51,6 @@ public:
     using reference = T&;
 
     my_iterator() = default;
-
-    list_base * it;
 
     my_iterator(list_base * it)
         : it(it)
@@ -126,21 +124,30 @@ public:
     return iterator(sentinel.next->prev);
   }
 
-  iterator insert (iterator next, T & element) {
-      iterator a = iterator(static_cast<list_element<Tag> *>(&element));
-      next.it->prev->next = a.it;
-      a.it->next = next.it;
-      a.it->prev = (--next).it;
-      next.it->prev = a.it;
-      ++next;
-      ++next;
-      return a;
+  iterator insert (iterator next, T & element) {                                // you can't insert an element twice
+    for (auto i = this->begin(); i != this->end(); ++i) {
+      if (&(*i) == &element) {
+        if (i == next) {
+          ++next;
+        }
+        i = this->erase(i);
+        --i;
+      }
+    }
+    iterator a = iterator(static_cast<list_element<Tag> *>(&element));
+    a.it->next = next.it;
+    a.it->prev = (--next).it;
+    next.it->next = a.it;
+    ++next;
+    ++next;
+    next.it->prev = a.it;
+    return a;
   }
 
   iterator erase (iterator position) {
     --position;
     position.it->next = position.it->next->next;
-    position.it->next->next->prev = position.it;
+    position.it->next->prev = position.it;
     return ++position;
   }
 

@@ -42,8 +42,8 @@ public:
     list_base * it;
 
     template<bool WasConst, class = std::enable_if_t<is_const || !WasConst>>
-    my_iterator(my_iterator<WasConst> rhs) : it(rhs.it) {}          // TODO: we have an opportunity to inc and dec const iterator
-    using iterator_category = std::forward_iterator_tag;
+    my_iterator(my_iterator<WasConst> rhs) : it(rhs.it) {}
+    using iterator_category = std::bidirectional_iterator_tag;
     using difference_type = std::ptrdiff_t;
     using value_type = list_element<Tag>;
 //    using pointer = T*;
@@ -197,9 +197,17 @@ public:
   void splice(const_iterator start, list<T> & from,
               const_iterator position_from,
               const_iterator position_to) {
-//    --start;
-//    start.it->next = position_from.it;
-//
+    if (position_to == position_from) return;
+
+    --position_to;
+    position_from.it->prev->next = position_to.it->next;
+    position_to.it->next->prev = position_from.it->prev;
+
+    position_from.it->prev = start.it->prev;
+    position_to.it->next = start.it;
+    position_from.it->prev->next = position_from.it;
+    position_to.it->next->prev = position_to.it;
+
   }
 
   void push_back(T& element)  {

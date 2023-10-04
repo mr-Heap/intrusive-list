@@ -39,16 +39,17 @@ public:
   {
   public:
 
-    int *d_;
     list_base * it;
 
     template<bool WasConst, class = std::enable_if_t<is_const || !WasConst>>
-    my_iterator(my_iterator<WasConst> rhs) : d_(rhs.d_), it(rhs.it) {}          // TODO: we have an opportunity to inc and dec const iterator
+    my_iterator(my_iterator<WasConst> rhs) : it(rhs.it) {}          // TODO: we have an opportunity to inc and dec const iterator
     using iterator_category = std::forward_iterator_tag;
     using difference_type = std::ptrdiff_t;
     using value_type = list_element<Tag>;
-    using pointer = T*;
-    using reference = T&;
+//    using pointer = T*;
+//    using reference = T&;
+    using pointer = typename std::conditional<is_const, const T*, T*>::type;
+    using reference = typename std::conditional<is_const, const T&, T&>::type;
 
     my_iterator() = default;
 
@@ -77,13 +78,14 @@ public:
 
     reference operator*() const
     {
-      return static_cast<T&>(*it);
+      return static_cast<reference>(*it);
     }
 
     pointer operator->() const
     {
-      return static_cast<T*>(static_cast<list_element<Tag>*>(it));
+      return static_cast<pointer>(static_cast<list_element<Tag>*>(it));
     }
+
 
     my_iterator & operator++()
     {
